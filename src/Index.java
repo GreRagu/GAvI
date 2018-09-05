@@ -60,9 +60,9 @@ public class Index{
 	}
 	
 	/**
-	 * This method allows to create index specifying what similarity has to be set. When constructor is called,
-	 * simUsed define the model to use for similarity.
-	 * @param sim is the similarity to set, not applied if uniqueIndex is yet created
+	 * Crea un index specificando la similarity. 
+	 * Quando viene chiamato il costruttore simUsed definisc il modello da usare per la similarity.
+	 * @param sim similarità da applicare, non applicata se uniqueIndex non è ancora stato creato
 	 * @return Index 
 	 */
 	public static Index getIndex(Similarity sim) {
@@ -74,7 +74,7 @@ public class Index{
 	}
 	
 	/**
-	 * A method used to allocate all tools of the Index. To change similarity, index has to be re-initialized.
+	 * alloca tutti gli strumenti dell'Index. per cambiare la similarità, l'indice deve essere riinizializzato
 	 */
 	private void startIndex() {
 		stdAnalyzer = new StandardAnalyzer();
@@ -98,9 +98,10 @@ public class Index{
 	}
 	
 	/**
-	 * To change similarity used by an index, this has to be re-initialized, losing its content. To prevent this,
-	 * reload can be set to true, saving content of index in a temporary Index (tempIndex) and reloading them after
-	 * re-initializing. This is done only if similarity of index is different by the passed one.
+	 * Per cambiare la similarità dell'indice questo deve essere ri inizializzato e perdere tutti i contenuti.
+	 * Per prevenire ciò si può settare a true il reload,salvando il contenuto dell'indice inun indice temporaneo(tempIndex)
+	 * e ricaricandolo dopo la re-initializzazione.
+	 * Questo avviene solo se la similarità dell'indice è diversa da quella passata.
 	 * @param sim is the similarity to set
 	 * @param reload is a boolean to save index in a temporary save and reload it's content after reset
 	 */
@@ -213,8 +214,8 @@ public class Index{
 	
 	
 	/**
-	 * This method is used to create and to add a document to the index.
-	 * @param docPath is a concatenation of path and name of a document (for example "doc/Lucene.pdf")
+	 * Crea e aggiunge un documento all'index. 
+	 * @param docPath path e nome di un documento singolo (es. "doc/Lucene.txt")
 	 */
 	public void addDocument(String docPath) {
 		Document doc = new Document();
@@ -227,8 +228,8 @@ public class Index{
 		}
 		
 		/*
-		 * Reading of document and storing it in content String, using line String to check 
-		 * consistency of each line read by BufferedReader
+		 * Legge il contenuto di un documento e lo conserva in una String, usando la stringa line  per controllare 
+		 * la consistenza di ogni riga letta dal BufferedReader
 		 */
 		String content = "";
 		String line;

@@ -134,7 +134,7 @@ public class Benchmark {
 		String docPath = "";
 
 		try {
-			File docF = new File(fileDocumentsPaths);
+			File docF = new File(fileDocumentsPaths);		//file di path specificati da utente
 			BufferedReader br = new BufferedReader(new FileReader(docF));
 
 			while ( (docPath = br.readLine()) != null) {
