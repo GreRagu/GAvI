@@ -53,16 +53,17 @@ public class Benchmark {
 
 	/**
 	 * This method performs the LISA benchmark.
-	 * Documents are added in the index.
-	 * Array with expected documents is created. (Documents that should be retrieved)
- 	 * Array with retrieved documents is created. (Documents that are retrieved)
- 	 * Array with intersection between expected and retrieved documents is created. (For calculating precision and recall)
+	 * I documenti vengono aggiunti all'index.
+	 * Array con i documenti attesi viene creato. (Documents that should be retrieved)
+ 	 * Array con documenti recuperati viene creato(Documents that are retrieved)
+ 	 * Array con intersezione tra i dueviene creato. (For calculating precision and recall)
 	 */
 	public void executeBenchmark() {
 		
 		//Reading queries from file
 		ArrayList<String> queries = readQueries();
 
+		//carica nell'indice tutti i file specificati in fileDocumentsPaths (tabella nella mian window)
 		System.out.println("Loading index with " + fileDocumentsPaths);
 
 		loadIndex();
@@ -89,6 +90,7 @@ public class Benchmark {
 	/**
 	 * This method read query from lisa.que
 	 * Queries are split with '#', so each query ends up with that terminator. 
+	 * !da modificare in base al nostro formato di query!!
 	 * @return list of queries
 	 */
 	public ArrayList<String> readQueries() {
@@ -125,8 +127,8 @@ public class Benchmark {
 	}
 
 	/**
-	 * Load documents to retrieve into the index.
-	 * Read every line of file (a line = a document) and add it to the index
+	 * Carica nel file i documenti da recuperare 
+	 * Legge ogni riga del file (una riga = un documento) e lo aggiunge all'indice
 	 */
 	private void loadIndex(){
 		String docPath = "";
