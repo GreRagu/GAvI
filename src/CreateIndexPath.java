@@ -70,5 +70,6 @@ public class CreateIndexPath {
 			e1.printStackTrace();
 		}
 		write.close();
+		System.out.println("Finito");
 	}
 }
