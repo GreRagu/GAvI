@@ -45,8 +45,6 @@ public class Main_Window {
 	private JTable fileTable = null;
 	private JTextField editDistanceText = null;
 	private Index generalIndex = null;
-	private JTable chronologyTable=null;
-	private LinkedList<String> chronology=new LinkedList<String>();
 	private static int editdistance=0;
 	
 	
@@ -82,6 +80,11 @@ public class Main_Window {
 		
 		frame = new JFrame();
 		
+		int btnDocs_pos_x = 20;
+		int btnDocs_pos_y = 50;
+		
+		int right_pos_x = 733;
+		int right_pos_y = 600;
 
 		//frame.getContentPane().setBackground(Color.GRAY);
 
@@ -92,25 +95,25 @@ public class Main_Window {
 		frame.setSize(1200, 800);
 		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("GOOD  SEARCH");	
+		frame.setTitle("SEARCH ENGINE");	
 		frame.getContentPane().setLayout(null);
 		
-		// label Project's name
+		/*// label Project's name
 		JLabel title = new JLabel("GOOD SEARCH");
-		title.setForeground(Color.WHITE);
+		title.setForeground(Color.BLACK);
 		title.setFont(new Font("Verdana", Font.BOLD, 19));
-		title.setBounds(173, 113, 192, 25);
-		frame.getContentPane().add(title);
+		title.setBounds(783, 25, 192, 25);
+		frame.getContentPane().add(title);*/
 		
 		//text to search
 		textField = new JTextField();
-		textField.setBounds(70, 149, 418, 20);
+		textField.setBounds(right_pos_x, 30, 418, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		//box model 
 		final JComboBox<String> modelbox = new JComboBox<String>();
-		modelbox.setBounds(70, 11, 156, 20);
+		modelbox.setBounds(right_pos_x, right_pos_y, 156, 20);
 		modelbox.setMaximumRowCount(5);
 		modelbox.setModel(new DefaultComboBoxModel<String>(new String[] { "Vector Space Model", "Boolean Model", "Probabilistic(BM25) Model", "Fuzzy Model"}));
 		modelbox.setSelectedIndex(0);
@@ -119,44 +122,43 @@ public class Main_Window {
 		
 		//button to search
 		JButton search = new JButton("Search");
-		search.setBounds(498, 148, 89, 23);
+		search.setBounds(1200, 30, 89, 23);
 		frame.getContentPane().add(search);
 		
 		//button to delete all file add
-		JButton delete = new JButton();
-		delete.setBounds(1122, 183, 52, 52);
+		JButton delete = new JButton(" delete all file ");
+		delete.setBounds(btnDocs_pos_x, btnDocs_pos_y, 100, 52);
 		ImageIcon deleteIcon = new ImageIcon(new ImageIcon("media/icons/empty_index.png").getImage().getScaledInstance(35, 35, 0));
 		delete.setIcon(deleteIcon);
 		delete.setMargin (new Insets (0, 0, 0, 0));
 		frame.getContentPane().add(delete);
 		
 		//button to add new files
-		JButton add = new JButton();
-		add.setBounds(1122, 246, 52, 52);
-        ImageIcon addIcon = new ImageIcon(new ImageIcon("media/icons/add_file.png").getImage().getScaledInstance(35, 35, 0));
-		add.setIcon(addIcon);
+		JButton add = new JButton(" add new files ");
+		add.setBounds(btnDocs_pos_x, btnDocs_pos_y +80, 100, 52);
+		//add.setIcon(addIcon);
 		add.setMargin (new Insets (0, 0, 0, 0));
 		frame.getContentPane().add(add);
 		
 		//button to remove all file selecting
-		JButton remove = new JButton();
-		remove.setBounds(1122, 309, 52, 52);
+		JButton remove = new JButton("remove all file");
+		remove.setBounds(btnDocs_pos_x, btnDocs_pos_y + 160, 100, 52);
 		ImageIcon removeIcon = new ImageIcon(new ImageIcon("media/icons/remove_file.png").getImage().getScaledInstance(35, 35, 0));
 		remove.setIcon(removeIcon);
 		remove.setMargin (new Insets (0, 0, 0, 0));
 		frame.getContentPane().add(remove);
 		
 		//Button to save Index
-		JButton btnSaveIndex = new JButton();
-		btnSaveIndex .setBounds(1122, 372, 52, 52);
+		JButton btnSaveIndex = new JButton("Save Index");
+		btnSaveIndex .setBounds(btnDocs_pos_x, btnDocs_pos_y + 240, 100, 52);
 		ImageIcon saveIcon  = new ImageIcon(new ImageIcon("media/icons/save_index.png").getImage().getScaledInstance(35, 35, 0));
 		btnSaveIndex.setIcon(saveIcon);
 		btnSaveIndex.setMargin (new Insets (0, 0, 0, 0));
 		frame.getContentPane().add(btnSaveIndex );
 		
 		//button to load Index
-		JButton btnloadIndex = new JButton();
-		btnloadIndex.setBounds(1122, 435, 52, 52);
+		JButton btnloadIndex = new JButton("Load Index");
+		btnloadIndex.setBounds(btnDocs_pos_x, btnDocs_pos_y + 320, 100, 52);
 		ImageIcon loadIcon  = new ImageIcon(new ImageIcon("media/icons/load_index.png").getImage().getScaledInstance(35, 35, 0));
 		btnloadIndex.setIcon(loadIcon);
 		btnloadIndex.setMargin (new Insets (0, 0, 0, 0));
@@ -164,7 +166,7 @@ public class Main_Window {
 		
 		//table for results 
 		resultsTable = new JTable();
-		resultsTable.setBounds(70, 234, 418, 405);
+		resultsTable.setBounds(right_pos_x, 134, 418, 405);
         final DefaultTableModel resultsModel = (DefaultTableModel) resultsTable.getModel();
         resultsModel.addColumn("File");
         resultsModel.addColumn("Score");
@@ -173,7 +175,7 @@ public class Main_Window {
 	
 		//table to view files adding
 		fileTable = new JTable();
-		fileTable.setBounds(753, 183, 359, 540);
+		fileTable.setBounds(140, btnDocs_pos_y, 359, 540);
 		final DefaultTableModel tableModel=(DefaultTableModel) fileTable.getModel();
 		frame.getContentPane().add(fileTable);
 		
@@ -181,46 +183,41 @@ public class Main_Window {
 		ButtonGroup opGroup = new ButtonGroup();		
 		
 		JRadioButton noOptimizations = new JRadioButton("No Optimizations");
-		noOptimizations.setBounds(753, 10, 170, 23);
+		noOptimizations.setBounds(right_pos_x + 140*3, right_pos_y - 20, 170, 23);
 		noOptimizations.setSelected(true);
 		opGroup.add(noOptimizations);
 		frame.getContentPane().add(noOptimizations);
 		
 		final JRadioButton editDistance = new JRadioButton("Edit Distance");
-		editDistance.setBounds(753, 36, 170, 23);
+		editDistance.setBounds(right_pos_x + 140*3, right_pos_y, 170, 23);
 		opGroup.add(editDistance);
 		frame.getContentPane().add(editDistance);
 		
 		editDistanceText = new JTextField();
-		editDistanceText.setBounds(929, 37, 39, 20);
+		editDistanceText.setBounds(right_pos_x + 130*4, right_pos_y, 39, 20);
 		frame.getContentPane().add(editDistanceText);
 		editDistanceText.setColumns(10);
 		
 		//button for user helping
 		JButton Help = new JButton("HELP");
-		Help.setBounds(254, 10, 89, 23);
+		Help.setBounds(right_pos_x + 160, right_pos_y, 89, 23);
 		frame.getContentPane().add(Help);
 		
 		//some label to define tables
 		JLabel lblResults = new JLabel("RESULTS");
-		lblResults.setForeground(Color.WHITE);
+		lblResults.setForeground(Color.BLACK);
 		lblResults.setFont(new Font("Verdana", Font.BOLD, 17));
-		lblResults.setBounds((418)/2+20, 204, 108, 14);
+		lblResults.setBounds(940, 90, 108, 14);
 		frame.getContentPane().add(lblResults);
 		
 		JLabel lblDocumnets = new JLabel("Documents");
-		lblDocumnets.setForeground(Color.WHITE);
+		lblDocumnets.setForeground(Color.BLACK);
 		lblDocumnets.setFont(new Font("Verdana", Font.BOLD, 17));
-		lblDocumnets.setBounds(753+ 359/2 -45, 147, 156, 25);
+		lblDocumnets.setBounds(200, 25, 156, 25);
 		frame.getContentPane().add(lblDocumnets);
 		
-		//button chronology
-		JButton btnChronology = new JButton("Chronology");
-		btnChronology.setBounds(373, 10, 136, 23);
-		frame.getContentPane().add(btnChronology);
-		
 		JButton btnBenchmark = new JButton("Benchmark");
-		btnBenchmark.setBounds(542, 10, 130, 23);
+		btnBenchmark.setBounds(right_pos_x + 130*2, right_pos_y, 130, 23);
 		frame.getContentPane().add(btnBenchmark);
 		
 	
@@ -238,18 +235,6 @@ public class Main_Window {
 		JLabel lblBenchemarkIsWorking = new JLabel("Benchmark is working...");
 		lblBenchemarkIsWorking.setBounds(89, 23, 205, 27);
 		waitPane.getContentPane().add(lblBenchemarkIsWorking);
-
-					
-		//frame Chronology
-		final JFrame ChronoPane=new JFrame("Chronology");
-		ChronoPane.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		
-		chronologyTable= new JTable();
-		final DefaultTableModel chronologyTableModel=(DefaultTableModel) chronologyTable.getModel();
-		 chronologyTableModel.setRowCount(10);
-		 chronologyTableModel.setColumnCount(1);
-		 tableModel.addColumn("Search");
-		 
 		
 	//Search: searching after press button "Search"
 		
@@ -267,10 +252,6 @@ public class Main_Window {
 				}
 	  
 				if(queryStr.isEmpty()==false) {
-					
-					//LinkList to save Chronology
-					chronology.addFirst(queryStr);
-				
 				
 				System.out.println("Query string: " + queryStr);
 				resultsModel.setRowCount(0);
@@ -398,29 +379,6 @@ public class Main_Window {
 		});
 	
 	
-	//Chronology
-	btnChronology.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			ChronoPane.setVisible(true);
-			ChronoPane.getContentPane().add(chronologyTable);
-			ChronoPane.setAlwaysOnTop(true);
-					
-			//in the center
-			 Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-			 
-			    int x = (int) ((dimension.getWidth() - 300) / 2);
-			    int y = (int) ((dimension.getHeight() - 215) / 2);
-			    
-			ChronoPane.setBounds(x, y, 300, 215);
-			int i;
-			for(i=0; i< chronologyTableModel.getRowCount();i++) {
-				
-				if(chronology.size()>i)
-				chronologyTableModel.setValueAt(chronology.get(i),i,0);
-				
-			}
-		}
-	});
 	
 	//load index
 	btnloadIndex.addActionListener(new ActionListener() {

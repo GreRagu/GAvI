@@ -31,7 +31,7 @@ public class CreateIndexPath {
 		file = "./dataset/clinical_dataset/IndexPath.txt";
 		System.out.println("Insert the path to root folder: ");
 
-		docsPath = "./dataset/clinical_dataset/pmc-text-00/";
+		docsPath = "./test_data/";
 		// docsPath = in.readLine();
 		System.out.println("Insert file extension: ");
 		while ((ext = in.readLine()) != null) {
@@ -70,6 +70,5 @@ public class CreateIndexPath {
 			e1.printStackTrace();
 		}
 		write.close();
-		System.out.println("Finito");
 	}
 }

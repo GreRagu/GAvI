@@ -146,7 +146,8 @@ public class IndexTREC {
 			// or positional information:
 			Field pathField = new StringField("path", file.toString(), Field.Store.YES);
 			doc.add(pathField);
-
+			System.out.println("field: "+ pathField);
+			System.out.println("path: "+ file.toString());
 			// Add the last modified date of the file a field named "modified".
 			// Use a LongPoint that is indexed (i.e. efficiently filterable with
 			// NumericRangeFilter). This indexes to milli-second resolution, which
@@ -168,6 +169,7 @@ public class IndexTREC {
 				// New index, so we just add the document (no old document can be there):
 				// System.out.println("adding " + file);
 				writer.addDocument(doc);
+				
 			} else {
 				// Existing index (an old copy of this document may have been indexed) so
 				// we use updateDocument instead to replace the old one matching the exact
