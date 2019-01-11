@@ -52,7 +52,7 @@ public class Benchmark {
 	}
 
 	/**
-	 * This method performs the LISA benchmark.
+	 * Questo metodo esegue i benchmark di LISA
 	 * I documenti vengono aggiunti all'index.
 	 * Array con i documenti attesi viene creato. (Documents that should be retrieved)
  	 * Array con documenti recuperati viene creato(Documents that are retrieved)
@@ -71,6 +71,7 @@ public class Benchmark {
 
 		expectedDocuments = getExpectedDocuments();
 		retrivedDocuments = retrieveDocuments(queries);
+		//intersezione calcolata con getIntersection
 		intersect = getIntersection(expectedDocuments, retrivedDocuments);
 		
 		saveResults("resFuz.save", intersect);
@@ -88,14 +89,15 @@ public class Benchmark {
 	}
 
 	/**
-	 * This method read query from lisa.que
-	 * Queries are split with '#', so each query ends up with that terminator. 
+	 * Quest metodo legge le query dal file lisa.que (da sostituire con topics2014.xml)
+	 * Le queries sono separate con un '#', quindi ognuna di esse termina così. 
 	 * !da modificare in base al nostro formato di query!!
 	 * @return list of queries
 	 */
 	public ArrayList<String> readQueries() {
 
-		//Carica le query nel file queryFile
+		//Carica le query nel file 
+
 		ArrayList<String> queries = new ArrayList<String>();
 
 		try {
@@ -147,8 +149,8 @@ public class Benchmark {
 	}
 
 	/**
-	 * Get list of expected documents for every query from LISA.REL
-	 * @return list of expected documents.
+	 * recupera la lista di documenti attesi da ogni quey dal file LISA.REL (dasostituire con qrels)
+	 * @return lista dei documenti attesi.
 	 */
 	private ArrayList<LinkedList<String>> getExpectedDocuments() {
 		ArrayList<LinkedList<String>> expectedDocuments = new ArrayList<LinkedList<String>>();
@@ -195,9 +197,9 @@ public class Benchmark {
 	}
 
 	/**
-	 * This method retrieve documents, passing queries from benchmark.
-	 * @param queries list of queries
-	 * @return documents retrieved for each query
+	 * Questo metodo recupera i documenti, passando le queries dal benchmark.
+	 * @param queries lista di queries
+	 * @return documenti recuperati per ogni query
 	 */
 	private ArrayList<LinkedList<String>> retrieveDocuments(ArrayList<String> queries){
 		ArrayList<LinkedList<String>> documentsRetrieved = new ArrayList<LinkedList<String>>();
@@ -221,18 +223,21 @@ public class Benchmark {
 	}
 
 	/**VALUTAZIONE
-	 * Do intersection between expected documents and retrieved documents.
+	 * Interseca i risultati attesi con quelli ottenuti.
 	 * @param expectedDocuments
 	 * @param retrievedDocuments
-	 * @return list of intersection
+	 * @return intersezione
 	 */
 	private ArrayList<LinkedList<String>> getIntersection(ArrayList<LinkedList<String>> expectedDocuments, ArrayList<LinkedList<String>> retrievedDocuments){
 		ArrayList<LinkedList<String>> intersect = new ArrayList<LinkedList<String>>();
 
 		LinkedList<String> intersection = null;
 
+		//cicla sui doc expected
 		for (int query = 0 ; query < expectedDocuments.size(); query++) {
 			intersection = new LinkedList<String>();
+			//crea una lista di strighe per ognuno
+			//cicla sui documenti recuperati
 			for (int i = 0; i < retrievedDocuments.get(query).size(); i++) {
 				for (int j = 0; j < expectedDocuments.get(query).size(); j++) {
 					if ( expectedDocuments.get(query).get(j).equals(retrievedDocuments.get(query).get(i)) ){
@@ -249,7 +254,7 @@ public class Benchmark {
 	}
 	
 	/**
-	 * Save intersection on a file.
+	 * Salva le intersezioni su un file
 	 * @param fileName
 	 * @param intersect
 	 */
@@ -269,8 +274,8 @@ public class Benchmark {
 	}
 
 	/** RECALL
-	 * Calculate recall
-	 * @param intersect intersection beetwen expected and retrived documents
+	 * Calcola recall
+	 * @param intersect intersezione ottenuta prima
 	 * @param expectedDocuments expected documents
 	 * @return list of recall for every query
 	 */
@@ -291,10 +296,10 @@ public class Benchmark {
 	}
 
 	/** PRECISION
-	 * Calculate precision
-	 * @param intersect intersection beetwen expected and retrived documents
-	 * @param retrievedDocuments retrived documents
-	 * @return list of precision for every query
+	 * Calcola precision
+	 * @param intersect intersezione calcolata in getIntersection
+	 * @param retrievedDocuments documenti recuperati
+	 * @return lista con le precisioni di ogni query
 	 */
 	public ArrayList<Double> getPrecision(ArrayList<LinkedList<String>> intersect, ArrayList<LinkedList<String>> retrievedDocuments) {
 		ArrayList<Double> precision = new ArrayList<Double>();
@@ -313,7 +318,7 @@ public class Benchmark {
 	}
 
 	/** 
-	 * Get recall standard levels
+	 * Ottiene i livelli standard di recall
 	 * @return
 	 */
 	private ArrayList<Double> getRecallLevel() {
@@ -327,7 +332,7 @@ public class Benchmark {
 	}
 	
 	/**
-	 * Get precision for standard levels
+	 * Ottiene i livelli standard di precisione
 	 * @return Precision
 	 */
 	public ArrayList<ArrayList<Double>> getPrecision() {
@@ -358,7 +363,7 @@ public class Benchmark {
 	}
 
 	/**
-	 * Calculate R-Precision
+	 * Calcola R-Precision
 	 * @param level R for R-Precision
 	 * @return value of r-precision for every query
 	 */
@@ -374,8 +379,8 @@ public class Benchmark {
 	}
 	
 	/**
-	 * Get Average precision
-	 * @param precision precision by getPrecision()
+	 * Ottiene precisione media
+	 * @param precision precisione di getPrecision()
 	 * @return avgprecision for every standard level
 	 */
 	public ArrayList<Double> getAvgPrecision(ArrayList<ArrayList<Double>> precision) {
@@ -395,11 +400,11 @@ public class Benchmark {
 	}
 	
 	/**
-	 * do intersection between two lists
+	 * Crea l'intersezione tra due liste
 	 * @param expectedDocuments
 	 * @param retrievedDocuments
-	 * @param much how much element of retrivedDocuments are read
-	 * @return new list made by intersection
+	 * @param much quanti elementi di quelli recuperati vengono letti
+	 * @return new lista con le intersezioni
 	 */
 	private ArrayList<String> getIntersect(LinkedList<String> expectedDocuments, LinkedList<String> retrievedDocuments, int much){
 		ArrayList<String> intersect = new ArrayList<String>();
@@ -413,9 +418,9 @@ public class Benchmark {
 	}
 	
 	/**
-	 * Calculate F-measure
-	 * @param precision list of precision for every query
-	 * @param recall list of recall for every query
+	 * Calcola F-measure
+	 * @param precision lista della precisione di ogni query
+	 * @param recall lista di recall per ogni query
 	 * @return f-measure
 	 */
 	public ArrayList<Double> getFMeasure(ArrayList<Double> precision, ArrayList<Double> recall) {
@@ -429,10 +434,10 @@ public class Benchmark {
 	}
 	
 	/**
-	 * Calculate E-measure
-	 * @param precision list of precision for every query
-	 * @param recall list of recall for every query
-	 * @param b parameter b for e-measure 
+	 * Calcola E-measure
+	 * @param precision lista di precisione per ogni query
+	 * @param recall lista di recall per ogni query
+	 * @param b parametro b per la e-measure 
 	 * @return emeasure
 	 */
 	public ArrayList<Double> getEMeasure(ArrayList<Double> precision, ArrayList<Double> recall, double b) {
@@ -444,8 +449,8 @@ public class Benchmark {
 	}
 	
 	/**
-	 * Save measure (f or e) on a file. 
-	 * @param measure measure to save
+	 * Salva la misura (f o e) su file. 
+	 * @param measure misura da salvare
 	 * @param fileName file name
 	 */
 	public void saveMeasure(ArrayList<Double> measure, String fileName) {
@@ -462,6 +467,7 @@ public class Benchmark {
 	}
 	
 	/**
+	 * Procedura per la creazione di un grafo sul benchmark
 	 * Procedure to do graph of benchmark
 	 */
 	public void doGraph() {
@@ -629,7 +635,7 @@ public class Benchmark {
 	}
 	
 	/**
-	 * Get max value in a double array list
+	 * Ritorna il valore massimo da un vettore di liste
 	 * @param list
 	 * @return
 	 */
@@ -644,7 +650,7 @@ public class Benchmark {
 	}
 	
 	/**
-	 * Get min value in a double array list
+	 * Ritorna il valore minimo da un vettore di liste
 	 * @param list
 	 * @return
 	 */
