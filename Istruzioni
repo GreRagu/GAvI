@@ -13,7 +13,7 @@ iwc.setRAMBufferSizeMB(512.0) all'interno di indexTREC.java
 Per effettuare query eseguire SearchFiles.java (da qualche errore, ma sistemabile, non usare il numero 0)
 che preleva la query da ./dataset/clinical_dataset/query/topics2014.xml e legge la frase ed effettua lo stamming 
 e cazzate varie stampando la query elaborata per poi stampare un elenco di file in cui trova dei risulatati
-che dovrebbero coincidere con il file ./dataset/clinical_dataset/qrels2015.txt
+che dovrebbero coincidere con il file ./dataset/clinical_dataset/qrels2014.txt
 
 per maggiori informazioni: http://www.trec-cds.org/2014.html
 e capire il formato del file qrels: https://trec.nist.gov/data/qrels_eng/ 

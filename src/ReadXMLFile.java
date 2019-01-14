@@ -28,7 +28,7 @@ public class ReadXMLFile {
 			in = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
 			while (true) {
 				// line = in.readLine();
-				line = "./dataset/clinical_dataset/query/topics2015A.xml";
+				line = "./dataset/clinical_dataset/query/topics2014.xml";
 				XmlFile = new File(line);
 				if (!XmlFile.exists()) {
 					System.out
@@ -45,9 +45,9 @@ public class ReadXMLFile {
 
 			NodeList nList = doc.getElementsByTagName("topic");
 
-			System.out.println("Enter query number(0-9): ");
+			System.out.println("Enter query number(1-30): ");
 			while ((line = in.readLine()) != null) {
-				if (line.matches("[0-9]+")) {
+				if (line.matches("([1-9]|[12][0-9]|3[0])")) {
 					number = Integer.parseInt(line);
 					if (number - 1 < nList.getLength())
 						break;
