@@ -43,6 +43,8 @@ public class Main_Window {
 	JScrollPane scrollPane = null;
 	private JTable resultsTable;
 	private JTable fileTable = null;
+	private JTable chronologyTable=null;
+	private LinkedList<String> chronology=new LinkedList<String>();
 	private JTextField editDistanceText = null;
 	private Index generalIndex = null;
 	private static int editdistance=0;
@@ -216,6 +218,10 @@ public class Main_Window {
 		lblDocumnets.setBounds(200, 25, 156, 25);
 		frame.getContentPane().add(lblDocumnets);
 		
+		JButton btnChronology = new JButton("Chronology");
+		btnChronology.setBounds(373, 10, 136, 23);
+		frame.getContentPane().add(btnChronology);
+		
 		JButton btnBenchmark = new JButton("Benchmark");
 		btnBenchmark.setBounds(right_pos_x + 130*2, right_pos_y, 130, 23);
 		frame.getContentPane().add(btnBenchmark);
@@ -236,6 +242,17 @@ public class Main_Window {
 		lblBenchemarkIsWorking.setBounds(89, 23, 205, 27);
 		waitPane.getContentPane().add(lblBenchemarkIsWorking);
 		
+		//frame Chronology
+		final JFrame ChronoPane=new JFrame("Chronology");
+		ChronoPane.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
+		chronologyTable= new JTable();
+		final DefaultTableModel chronologyTableModel=(DefaultTableModel) chronologyTable.getModel();
+		 chronologyTableModel.setRowCount(10);
+		 chronologyTableModel.setColumnCount(1);
+		 tableModel.addColumn("Search");
+
+		
 	//Search: searching after press button "Search"
 		
 		search.addActionListener(new ActionListener() {
@@ -252,6 +269,9 @@ public class Main_Window {
 				}
 	  
 				if(queryStr.isEmpty()==false) {
+					//LinkList to save Chronology
+					chronology.addFirst(queryStr);
+
 				
 				System.out.println("Query string: " + queryStr);
 				resultsModel.setRowCount(0);
@@ -378,7 +398,28 @@ public class Main_Window {
 			}
 		});
 	
-	
+	btnChronology.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			ChronoPane.setVisible(true);
+			ChronoPane.getContentPane().add(chronologyTable);
+			ChronoPane.setAlwaysOnTop(true);
+
+			//in the center
+			 Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+
+			    int x = (int) ((dimension.getWidth() - 300) / 2);
+			    int y = (int) ((dimension.getHeight() - 215) / 2);
+
+			ChronoPane.setBounds(x, y, 300, 215);
+			int i;
+			for(i=0; i< chronologyTableModel.getRowCount();i++) {
+
+				if(chronology.size()>i)
+				chronologyTableModel.setValueAt(chronology.get(i),i,0);
+
+			}
+		}
+	});
 	
 	//load index
 	btnloadIndex.addActionListener(new ActionListener() {
